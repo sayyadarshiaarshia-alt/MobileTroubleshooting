@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mobile Phone Troubleshooting Expert System</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: white;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 17px;
+        }
+
+        nav {
+            background: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: bold;
+            margin: 0 15px;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #1d4ed8;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            color: #1d4ed8;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            background: white;
+        }
+
+        button {
+            border: none;
+            padding: 13px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .diagnose-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .clear-btn {
+            background: #64748b;
+            color: white;
+        }
+
+        .close-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 22px;
+            border-left: 5px solid #2563eb;
+            background: #eff6ff;
+            border-radius: 8px;
+        }
+
+        .result h3 {
+            color: #1d4ed8;
+            margin-bottom: 15px;
+        }
+
+        .result p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        /* RULES HIDDEN INITIALLY */
+        .rules-section {
+            margin-top: 40px;
+            display: none;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        td {
+            padding: 13px;
+            border-bottom: 1px solid #e5e7eb;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) {
+            background: #f8fafc;
+        }
+
+        .rule-number {
+            font-weight: bold;
+            color: #2563eb;
+        }
+
+        .about {
+            line-height: 1.8;
+        }
+
+        .about ul {
+            margin: 15px 0 0 25px;
+        }
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f0fdf4;
+            color: #166534;
+            border-radius: 6px;
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                width: 94%;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            nav a {
+                display: inline-block;
+                margin: 5px 8px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <h1>📱 Mobile Phone Troubleshooting</h1>
+
+        <p>
+            Rule-Based Expert System for Common Mobile Problems
+        </p>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <a href="#diagnose">
+            🔍 Diagnose
+        </a>
+
+        <a href="#rules" onclick="showRules(event)">
+            📋 View 20 Rules
+        </a>
+
+        <a href="#about">
+            ℹ About
+        </a>
+
+    </nav>
+
+
+    <div class="container">
+
+
+        <!-- DIAGNOSIS SECTION -->
+
+        <section class="card" id="diagnose">
+
+            <h2>
+                🔍 Diagnose Your Problem
+            </h2>
+
+
+            <form method="POST" action="/">
+
+                <label for="problem">
+
+                    <strong>
+                        Select your mobile problem:
+                    </strong>
+
+                </label>
+
+
+                <select name="problem" id="problem" required>
+
+                    <option value="">
+                        -- Select a Problem --
+                    </option>
+
+
+                    {% for problem in rules.keys() %}
+
+                    <option value="{{ problem }}"
+                        {% if selected_problem == problem %}
+                        selected
+                        {% endif %}>
+
+                        {{ problem }}
+
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <button
+                    type="submit"
+                    class="diagnose-btn">
+
+                    🔍 Diagnose Problem
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="clear-btn"
+                    onclick="clearForm()">
+
+                    ↻ Clear
+
+                </button>
+
+            </form>
+
+
+            <!-- DIAGNOSIS RESULT -->
+
+            {% if diagnosis %}
+
+            <div class="result">
+
+                <h3>
+                    ✅ Diagnosis Result
+                </h3>
+
+
+                <p>
+
+                    <strong>
+                        Problem:
+                    </strong>
+
+                    {{ selected_problem }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Possible Cause:
+                    </strong>
+
+                    {{ diagnosis.cause }}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Recommended Solution:
+                    </strong>
+
+                    {{ diagnosis.solution }}
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- RULES SECTION -->
+
+        <section
+            class="card rules-section"
+            id="rules">
+
+
+            <h2>
+                📋 20 Troubleshooting Rules
+            </h2>
+
+
+            <div class="table-container">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Rule
+                            </th>
+
+                            <th>
+                                Problem
+                            </th>
+
+                            <th>
+                                Possible Cause
+                            </th>
+
+                            <th>
+                                Recommended Solution
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for problem, data in rules.items() %}
+
+
+                        <tr>
+
+                            <td class="rule-number">
+
+                                R{{ loop.index }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ problem }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ data.cause }}
+
+                            </td>
+
+
+                            <td>
+
+                                {{ data.solution }}
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+            <br>
+
+
+            <button
+                type="button"
+                class="close-btn"
+                onclick="hideRules()">
+
+                ✕ Hide Rules
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- ABOUT SECTION -->
+
+        <section
+            class="card about"
+            id="about">
+
+
+            <h2>
+                ℹ About the Expert System
+            </h2>
+
+
+            <p>
+
+                The Mobile Phone Troubleshooting Expert System
+                is a rule-based artificial intelligence application
+                designed to identify common mobile phone problems
+                and provide possible solutions.
+
+            </p>
+
+
+            <ul>
+
+                <li>
+                    Python-based Expert System
+                </li>
+
+                <li>
+                    Flask Web Application
+                </li>
+
+                <li>
+                    20 Troubleshooting Rules
+                </li>
+
+                <li>
+                    IF-THEN Rule-Based Reasoning
+                </li>
+
+                <li>
+                    Simple and User-Friendly Interface
+                </li>
+
+            </ul>
+
+
+        </section>
+
+
+    </div>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+
+            Rule-Based Expert System
+            • Python + Flask
+            • 20 Rules
+
+        </p>
+
+    </footer>
+
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        function showRules(event) {
+
+            event.preventDefault();
+
+            const rulesSection =
+                document.getElementById("rules");
+
+            rulesSection.style.display = "block";
+
+            rulesSection.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+
+        function hideRules() {
+
+            const rulesSection =
+                document.getElementById("rules");
+
+            rulesSection.style.display = "none";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        function clearForm() {
+
+            window.location.href = "/";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
